@@ -52,6 +52,7 @@ function loadPosts() {
   if (currentIndex >= posts.length) showMoreBtn.style.display = "none";
 }
 */
+/*
   function loadPosts() {
   let nextIndex = Math.min(currentIndex + PAGE_SIZE, posts.length);
   const postsToLoad = posts.slice(currentIndex, nextIndex);
@@ -79,6 +80,51 @@ function loadPosts() {
         `;
         
         // Share button functionality
+        div.querySelector(".shareBtn").addEventListener("click", () => {
+          if (navigator.share) {
+            navigator.share({
+              title: `Post ${currentIndex + i + 1}`,
+              text: plainText,
+              url: window.location.origin + "/" + posts[currentIndex + i]
+            });
+          } else {
+            alert("Sharing not supported on this browser");
+          }
+        });
+
+        postsList.appendChild(div);
+      });
+      
+      currentIndex = nextIndex;
+      if (currentIndex >= posts.length) showMoreBtn.style.display = "none";
+    })
+    .catch(error => console.error("Error loading posts:", error));
+}
+*/
+function loadPosts() {
+  let nextIndex = Math.min(currentIndex + PAGE_SIZE, posts.length);
+  const postsToLoad = posts.slice(currentIndex, nextIndex);
+  
+  const fetchPromises = postsToLoad.map(postUrl => fetch(postUrl).then(res => res.text()));
+
+  Promise.all(fetchPromises)
+    .then(postContents => {
+      postContents.forEach((data, i) => {
+        let div = document.createElement("div");
+        div.className = "post";
+
+        let tempEl = document.createElement("div");
+        tempEl.innerHTML = data;
+        let plainText = tempEl.innerText.substring(0, 150) + "...";
+
+        // Yahaan badlav kiya gaya hai
+        div.innerHTML = `
+          <h2>Top Headline</h2> 
+          <p class="content">${plainText}</p>
+          <span class="read-more" data-index="${currentIndex + i}">Read More</span>
+          <button class="shareBtn">📤 Share</button>
+        `;
+        
         div.querySelector(".shareBtn").addEventListener("click", () => {
           if (navigator.share) {
             navigator.share({
