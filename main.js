@@ -100,7 +100,7 @@ element.querySelector(".content").appendChild(displayEl);
     });
 }
 */
-/*
+
 function openPost(index, element) {
   fetch(posts[index])
     .then(res => res.text())
@@ -147,7 +147,7 @@ function openPost(index, element) {
       element.classList.add("active");
     });
 }
-*/
+
 /*
 // Floating Mic Play/Stop
 playBtn.addEventListener("click", () => {
@@ -172,7 +172,7 @@ playBtn.addEventListener("click", () => {
   }
 });
 */
-/*
+
 // Floating Mic Play/Stop
 playBtn.addEventListener("click", () => {
   // ✅ check speech synthesis support
@@ -208,7 +208,8 @@ playBtn.addEventListener("click", () => {
     playBtn.textContent = "🎤 Play"; // Mic icon
   }
 });
-*/
+
+/*
 // Expand full post
 function openPost(index, element) {
   fetch(posts[index])
@@ -280,6 +281,7 @@ function toggleSpeech(text) {
     isPlaying = true;
   }
 }
+*/
 // Stop Audio function
 function stopAudio() {
   if (speechSynthesis.speaking) {
