@@ -42,7 +42,28 @@ nav a {
 nav a:hover {
   background: rgba(255,255,255,0.2);
 }
+/* Share Button Style */
+.header-share-btn {
+  background: #0066cc;       /* Blue background */
+  color: #fff;               /* White text */
+  border: none;
+  padding: 6px 14px;
+  margin-left: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.1s;
+}
 
+.header-share-btn:hover {
+  background: #004999;       /* Darker blue on hover */
+  transform: translateY(-1px);
+}
+
+.header-share-btn:active {
+  background: #003366;       /* Pressed effect */
+  transform: translateY(0);
+}
 /* Audio Player 
 .audio-player {
   text-align: center;
