@@ -1,12 +1,12 @@
 const postsList = document.getElementById("posts-list");
 const showMoreBtn = document.getElementById("showMoreBtn");
-const audioBtn = document.getElementById("audioBtn");
+const playBtn = document.getElementById("playBtn"); // Floating mic button
 
 let posts = ["post1.html", "post2.html", "post3.html"]; // add more posts
 let currentIndex = 0;
 const PAGE_SIZE = 3;
 
-let currentOpenPost = null;
+let selectedPostContent = ""; // current open post ka content
 let currentSpeech = null;
 let isPlaying = false;
 
@@ -42,18 +42,28 @@ function openPost(index, element) {
     .then(res => res.text())
     .then(data => {
       // reset previous active
-      document.querySelectorAll(".post").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".post").forEach(p => {
+        p.classList.remove("active");
+        let content = p.querySelector(".content");
+        let readMore = p.querySelector(".read-more");
+        if (readMore) readMore.style.display = "inline";
+        if (content && content.textContent.length > 200) {
+          content.innerHTML = content.textContent.substring(0, 150) + "...";
+        }
+      });
 
       element.querySelector(".content").innerHTML = data;
       element.querySelector(".read-more").style.display = "none";
       element.classList.add("active");
-      currentOpenPost = data;
+
+      selectedPostContent = data; // 👈 Save for floating player
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 }
 
-// Audio Toggle
-audioBtn.addEventListener("click", () => {
-  if (!currentOpenPost) {
+// Floating Mic Play/Stop
+playBtn.addEventListener("click", () => {
+  if (!selectedPostContent) {
     alert("पहले कोई पोस्ट खोलें जिसे आप सुनना चाहते हैं");
     return;
   }
@@ -61,23 +71,16 @@ audioBtn.addEventListener("click", () => {
   if (!isPlaying) {
     stopAudio();
 
-    currentSpeech = new SpeechSynthesisUtterance(currentOpenPost);
+    currentSpeech = new SpeechSynthesisUtterance(selectedPostContent);
     currentSpeech.lang = "hi-IN";
-
-    // Try male Hindi voice if available
-    let voices = speechSynthesis.getVoices();
-    let hindiMale = voices.find(v => v.lang === "hi-IN" && v.name.toLowerCase().includes("male"));
-    if (hindiMale) {
-      currentSpeech.voice = hindiMale;
-    }
-
     speechSynthesis.speak(currentSpeech);
+
     isPlaying = true;
-    audioBtn.textContent = "⏹ Stop";
+    playBtn.textContent = "⏹"; // Stop icon
   } else {
     stopAudio();
     isPlaying = false;
-    audioBtn.textContent = "▶ Play";
+    playBtn.textContent = "🎤"; // Mic icon
   }
 });
 
