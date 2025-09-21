@@ -189,3 +189,17 @@ function shareHomepage() {
     alert("Sharing not supported on this browser");
   }
 }
+// Event delegation for headline clicks inside expanded post
+postsList.addEventListener("click", (e) => {
+  // Read More
+  if (e.target.classList.contains("read-more")) {
+    let index = e.target.getAttribute("data-index");
+    let parent = e.target.closest(".post");
+    openPost(index, parent);
+  }
+
+  // Play specific headline from li[data-text]
+  if (e.target.tagName === "LI" && e.target.dataset.text) {
+    startReading(e.target.dataset.text);
+  }
+});
