@@ -74,7 +74,7 @@ function openPost(index, element) {
       tempEl.innerHTML = data;
       let plainText = tempEl.innerText; // 👈 Only plain text for reading
 
-      element.querySelector(".content").innerText = plainText;
+      element.querySelector(".content").innerText = data;
       element.querySelector(".read-more").style.display = "none";
       element.classList.add("active");
 
