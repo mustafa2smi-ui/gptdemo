@@ -2,7 +2,7 @@ const postsList = document.getElementById("posts-list");
 const showMoreBtn = document.getElementById("showMoreBtn");
 const playBtn = document.getElementById("playBtn"); // Floating mic button
 
-let posts = ["post1.html", "post2.html", "post3.html"]; // add more posts
+let posts = ["post1.html", "post2.html", "post3.html","post4.html","post5.html","post6.html"]; // add more posts
 let currentIndex = 0;
 const PAGE_SIZE = 3;
 
