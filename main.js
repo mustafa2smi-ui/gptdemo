@@ -127,3 +127,14 @@ postsList.addEventListener("click", (e) => {
 
 // Initial load
 loadPosts();
+function shareHomepage() {
+  if (navigator.share) {
+    navigator.share({
+      title: "My News Site",
+      text: "MicNews123 पर पढ़ें ताज़ा खबरें और सुनें हिंदी ऑडियो न्यूज़।",
+      url: window.location.href
+    });
+  } else {
+    alert("Sharing not supported on this browser");
+  }
+}
