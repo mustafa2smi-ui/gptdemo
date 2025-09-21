@@ -100,7 +100,7 @@ element.querySelector(".content").appendChild(displayEl);
     });
 }
 */
-
+/*
 function openPost(index, element) {
   fetch(posts[index])
     .then(res => res.text())
@@ -147,6 +147,7 @@ function openPost(index, element) {
       element.classList.add("active");
     });
 }
+*/
 /*
 // Floating Mic Play/Stop
 playBtn.addEventListener("click", () => {
@@ -171,6 +172,7 @@ playBtn.addEventListener("click", () => {
   }
 });
 */
+/*
 // Floating Mic Play/Stop
 playBtn.addEventListener("click", () => {
   // ✅ check speech synthesis support
@@ -206,6 +208,78 @@ playBtn.addEventListener("click", () => {
     playBtn.textContent = "🎤 Play"; // Mic icon
   }
 });
+*/
+// Expand full post
+function openPost(index, element) {
+  fetch(posts[index])
+    .then(res => res.text())
+    .then(data => {
+      // Reset previous active
+      document.querySelectorAll(".post").forEach(p => {
+        p.classList.remove("active");
+        let content = p.querySelector(".content");
+        let readMore = p.querySelector(".read-more");
+        if (readMore) readMore.style.display = "inline";
+        if (content && content.textContent.length > 200) {
+          content.innerHTML = content.textContent.substring(0, 150) + "...";
+        }
+      });
+
+      // Parse HTML
+      let tempEl = document.createElement("div");
+      tempEl.innerHTML = data;
+
+      // For audio: plain text only
+      let plainText = tempEl.innerText; 
+      selectedPostContent = plainText;
+
+      // For homepage display: HTML content (images + text)
+      let displayEl = document.createElement("div");
+      displayEl.append(...tempEl.childNodes);
+
+      element.querySelector(".content").innerHTML = "";
+      element.querySelector(".content").appendChild(displayEl);
+      element.querySelector(".read-more").style.display = "none";
+      element.classList.add("active");
+
+      // 👉 अगर audio already चल रहा है तो नया post select होते ही
+      // पुराना cancel और नया play शुरू
+      if (isPlaying) {
+        window.speechSynthesis.cancel();
+        toggleSpeech(selectedPostContent); 
+      }
+    });
+}
+
+// ----------------------------
+// Play / Stop button toggle
+let utterance;
+let isPlaying = false;
+
+function toggleSpeech(text) {
+  if (!('speechSynthesis' in window)) {
+    alert("माफ़ करें, आपका डिवाइस हिंदी ऑडियो सपोर्ट नहीं करता।");
+    return;
+  }
+
+  if (isPlaying) {
+    window.speechSynthesis.cancel();
+    document.getElementById("playBtn").innerText = "🎤 Play";
+    isPlaying = false;
+  } else {
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "hi-IN";
+
+    utterance.onend = () => {
+      document.getElementById("playBtn").innerText = "🎤 Play";
+      isPlaying = false;
+    };
+
+    window.speechSynthesis.speak(utterance);
+    document.getElementById("playBtn").innerText = "⏹ Stop";
+    isPlaying = true;
+  }
+}
 // Stop Audio function
 function stopAudio() {
   if (speechSynthesis.speaking) {
