@@ -141,7 +141,20 @@ nav a:hover {
   background: #1e7e34;
   transform: scale(1.05);
 }
+.post button.shareBtn {
+  margin-top: 8px;
+  background: #0066cc;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
 
+.post button.shareBtn:hover {
+  background: #004999;
+}
 /* Footer */
 footer {
   background: #333;
