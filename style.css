@@ -77,15 +77,16 @@ nav a:hover {
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   z-index:9999;
 }
+*/
 #playBtn {
   border: none;
   background: none;
   font-size: 24px;
   cursor: pointer;
 }
-*/
+
 /* ============ 6. Audio Player Button (Big Mic) ============ */
-.mic-style-btn {
+#floating-player {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
@@ -104,7 +105,7 @@ nav a:hover {
     align-items: center;
     z-index: 100;
 }
-.mic-style-btn:hover {
+.playBtn:hover {
     transform: scale(1.1);
 }
 /* Posts */
