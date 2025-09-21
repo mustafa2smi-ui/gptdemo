@@ -57,7 +57,7 @@ function openPost(index, element) {
       element.classList.add("active");
 
       selectedPostContent = data; // 👈 Save for floating player
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      /* window.scrollTo({ top: 0, behavior: "smooth" });*/
     });
 }
 
