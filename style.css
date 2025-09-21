@@ -43,7 +43,7 @@ nav a:hover {
   background: rgba(255,255,255,0.2);
 }
 
-/* Audio Player */
+/* Audio Player 
 .audio-player {
   text-align: center;
   margin: 20px 0;
@@ -65,8 +65,22 @@ nav a:hover {
 #audioBtn:hover {
   background: #0056b3;
   transform: scale(1.05);
+}*/
+#floating-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ffcc00;
+  border-radius: 50%;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
-
+#playBtn {
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+}
 /* Posts */
 #posts-list {
   max-width: 600px;
