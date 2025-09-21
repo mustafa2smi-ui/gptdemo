@@ -69,7 +69,7 @@ function openPost(index, element) {
           content.innerHTML = content.textContent.substring(0, 150) + "...";
         }
       });
-
+/*
       let tempEl = document.createElement("div");
       tempEl.innerHTML = data;
       let plainText = tempEl.innerText; // 👈 Only plain text for reading
@@ -80,6 +80,22 @@ function openPost(index, element) {
 
       selectedPostContent = plainText; // 👈 save visible content
       // window.scrollTo({ top: 0, behavior: "smooth" }); // Removed for no auto scroll
+   */
+      // Parse HTML
+let tempEl = document.createElement("div");
+tempEl.innerHTML = data;
+
+// For audio: only text
+let plainText = tempEl.innerText; 
+selectedPostContent = plainText; // mic will read this
+
+// For homepage display: only inner content (image + text), but no raw tags visible
+let displayEl = document.createElement("div");
+displayEl.append(...tempEl.childNodes); // preserves HTML elements properly
+
+// Clear previous content and append
+element.querySelector(".content").innerHTML = "";
+element.querySelector(".content").appendChild(displayEl);
     });
 }
 
