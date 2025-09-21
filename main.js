@@ -2,11 +2,11 @@ const postsList = document.getElementById("posts-list");
 const showMoreBtn = document.getElementById("showMoreBtn");
 const playBtn = document.getElementById("playBtn"); // Floating mic button
 
-let posts = ["post1.html", "post2.html", "post3.html","post4.html","post5.html","post6.html"]; // add more posts
+let posts = ["post1.html", "post2.html", "post3.html","post4.html","post5.html","post6.html"];
 let currentIndex = 0;
 const PAGE_SIZE = 3;
 
-let selectedPostContent = ""; // current open post ka content
+let selectedPostContent = ""; // visible post content
 let currentSpeech = null;
 let isPlaying = false;
 
@@ -20,13 +20,31 @@ function loadPosts() {
         let div = document.createElement("div");
         div.className = "post";
 
-        let preview = data.substring(0, 150) + "...";
+        // Extract plain text from HTML for preview
+        let tempEl = document.createElement("div");
+        tempEl.innerHTML = data;
+        let plainText = tempEl.innerText.substring(0, 150) + "...";
 
         div.innerHTML = `
           <h2>Post ${i+1}</h2>
-          <p class="content">${preview}</p>
+          <p class="content">${plainText}</p>
           <span class="read-more" data-index="${i}">Read More</span>
+          <button class="shareBtn">📤 Share</button>
         `;
+
+        // Share button
+        div.querySelector(".shareBtn").addEventListener("click", () => {
+          if (navigator.share) {
+            navigator.share({
+              title: `Post ${i+1}`,
+              text: plainText,
+              url: window.location.origin + "/" + posts[i]
+            });
+          } else {
+            alert("Sharing not supported on this browser");
+          }
+        });
+
         postsList.appendChild(div);
       });
   }
@@ -41,7 +59,7 @@ function openPost(index, element) {
   fetch(posts[index])
     .then(res => res.text())
     .then(data => {
-      // reset previous active
+      // Reset previous active
       document.querySelectorAll(".post").forEach(p => {
         p.classList.remove("active");
         let content = p.querySelector(".content");
@@ -52,12 +70,16 @@ function openPost(index, element) {
         }
       });
 
-      element.querySelector(".content").innerHTML = data;
+      let tempEl = document.createElement("div");
+      tempEl.innerHTML = data;
+      let plainText = tempEl.innerText; // 👈 Only plain text for reading
+
+      element.querySelector(".content").innerText = plainText;
       element.querySelector(".read-more").style.display = "none";
       element.classList.add("active");
 
-      selectedPostContent = data; // 👈 Save for floating player
-      /* window.scrollTo({ top: 0, behavior: "smooth" });*/
+      selectedPostContent = plainText; // 👈 save visible content
+      // window.scrollTo({ top: 0, behavior: "smooth" }); // Removed for no auto scroll
     });
 }
 
@@ -80,7 +102,7 @@ playBtn.addEventListener("click", () => {
   } else {
     stopAudio();
     isPlaying = false;
-    playBtn.textContent = "🎤"; // Mic icon
+    playBtn.textContent = "🎤 Play"; // Mic icon
   }
 });
 
