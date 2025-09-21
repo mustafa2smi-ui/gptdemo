@@ -147,6 +147,7 @@ function openPost(index, element) {
       element.classList.add("active");
     });
 }
+/*
 // Floating Mic Play/Stop
 playBtn.addEventListener("click", () => {
   if (!selectedPostContent) {
@@ -169,7 +170,42 @@ playBtn.addEventListener("click", () => {
     playBtn.textContent = "🎤 Play"; // Mic icon
   }
 });
+*/
+// Floating Mic Play/Stop
+playBtn.addEventListener("click", () => {
+  // ✅ check speech synthesis support
+  if (!("speechSynthesis" in window)) {
+    alert("माफ़ करें, आपका डिवाइस ऑडियो सपोर्ट नहीं करता");
+    return;
+  }
 
+  if (!selectedPostContent) {
+    alert("पहले कोई पोस्ट खोलें जिसे आप सुनना चाहते हैं");
+    return;
+  }
+
+  if (!isPlaying) {
+    stopAudio();
+
+    currentSpeech = new SpeechSynthesisUtterance(selectedPostContent);
+    currentSpeech.lang = "hi-IN";
+
+    // ✅ jab padh ke khatam ho jaye to auto reset
+    currentSpeech.onend = () => {
+      isPlaying = false;
+      playBtn.textContent = "🎤 Play"; // Mic icon wapas
+    };
+
+    speechSynthesis.speak(currentSpeech);
+
+    isPlaying = true;
+    playBtn.textContent = "⏹"; // Stop icon
+  } else {
+    stopAudio();
+    isPlaying = false;
+    playBtn.textContent = "🎤 Play"; // Mic icon
+  }
+});
 // Stop Audio function
 function stopAudio() {
   if (speechSynthesis.speaking) {
