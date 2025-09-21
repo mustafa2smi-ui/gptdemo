@@ -55,6 +55,7 @@ function loadPosts() {
 }
 
 // Expand full post
+/*
 function openPost(index, element) {
   fetch(posts[index])
     .then(res => res.text())
@@ -80,7 +81,7 @@ function openPost(index, element) {
 
       selectedPostContent = plainText; // 👈 save visible content
       // window.scrollTo({ top: 0, behavior: "smooth" }); // Removed for no auto scroll
-   */
+   
       // Parse HTML
 let tempEl = document.createElement("div");
 tempEl.innerHTML = data;
@@ -98,7 +99,54 @@ element.querySelector(".content").innerHTML = "";
 element.querySelector(".content").appendChild(displayEl);
     });
 }
+*/
 
+function openPost(index, element) {
+  fetch(posts[index])
+    .then(res => res.text())
+    .then(data => {
+      // Reset previous active posts
+      document.querySelectorAll(".post").forEach(p => {
+        p.classList.remove("active");
+        let content = p.querySelector(".content");
+        let readMore = p.querySelector(".read-more");
+        if (readMore) readMore.style.display = "inline";
+        if (content && content.textContent.length > 200) {
+          content.innerHTML = content.textContent.substring(0, 150) + "...";
+        }
+      });
+
+      // Create temp container
+      let tempEl = document.createElement("div");
+      tempEl.innerHTML = data;
+
+      // Extract only valid tags for homepage
+      let allowedTags = ["P","H1","H2","H3","H4","H5","H6","IMG","UL","OL","LI"];
+      let displayContent = document.createElement("div");
+
+      tempEl.childNodes.forEach(node => {
+        if (node.nodeType === 1 && allowedTags.includes(node.tagName)) {
+          displayContent.appendChild(node.cloneNode(true));
+        } else if (node.nodeType === 3 && node.textContent.trim() !== "") {
+          // text node
+          let p = document.createElement("p");
+          p.textContent = node.textContent;
+          displayContent.appendChild(p);
+        }
+      });
+
+      // Append cleaned content
+      let contentEl = element.querySelector(".content");
+      contentEl.innerHTML = "";
+      contentEl.appendChild(displayContent);
+
+      // For audio
+      selectedPostContent = tempEl.innerText;
+
+      element.querySelector(".read-more").style.display = "none";
+      element.classList.add("active");
+    });
+}
 // Floating Mic Play/Stop
 playBtn.addEventListener("click", () => {
   if (!selectedPostContent) {
