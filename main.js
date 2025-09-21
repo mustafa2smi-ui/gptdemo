@@ -11,6 +11,7 @@ let currentSpeech = null;
 let isPlaying = false;
 
 // -------------------- Load posts preview --------------------
+/*
 function loadPosts() {
   let nextIndex = Math.min(currentIndex + PAGE_SIZE, posts.length);
   for (let i = currentIndex; i < nextIndex; i++) {
@@ -50,7 +51,50 @@ function loadPosts() {
   currentIndex = nextIndex;
   if (currentIndex >= posts.length) showMoreBtn.style.display = "none";
 }
+*/
+function loadPosts() {
+  let nextIndex = Math.min(currentIndex + PAGE_SIZE, posts.length);
+  
+  // Sequential fetch using async/await
+  (async () => {
+    for (let i = currentIndex; i < nextIndex; i++) {
+      const res = await fetch(posts[i]);
+      const data = await res.text();
 
+      let div = document.createElement("div");
+      div.className = "post";
+
+      let tempEl = document.createElement("div");
+      tempEl.innerHTML = data;
+      let plainText = tempEl.innerText.substring(0, 150) + "...";
+
+      div.innerHTML = `
+        <h2>Post ${i+1}</h2>
+        <p class="content">${plainText}</p>
+        <span class="read-more" data-index="${i}">Read More</span>
+        <button class="shareBtn">📤 Share</button>
+      `;
+
+      // Share button
+      div.querySelector(".shareBtn").addEventListener("click", () => {
+        if (navigator.share) {
+          navigator.share({
+            title: `Post ${i+1}`,
+            text: plainText,
+            url: window.location.origin + "/" + posts[i]
+          });
+        } else {
+          alert("Sharing not supported on this browser");
+        }
+      });
+
+      postsList.appendChild(div);
+    }
+
+    currentIndex = nextIndex;
+    if (currentIndex >= posts.length) showMoreBtn.style.display = "none";
+  })();
+}
 // -------------------- Expand full post --------------------
 function openPost(index, element) {
   fetch(posts[index])
