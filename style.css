@@ -68,12 +68,13 @@ nav a:hover {
 }*/
 #floating-player {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 80px;
+  right: 30px;
   background: #ffcc00;
   border-radius: 50%;
-  padding: 15px;
+  padding: 18px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index:9999;
 }
 #playBtn {
   border: none;
