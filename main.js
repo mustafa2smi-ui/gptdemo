@@ -283,6 +283,24 @@ postsList.addEventListener("click", (e) => {
     startReadingFromElement(e.target);
   }
 });
+// Play headline on click (short tap)
+postsList.addEventListener("click", (e) => {
+  const target = e.target;
+
+  // Mic play if data-text present
+  if ((target.tagName === "LI" || target.tagName.startsWith("H")) && target.dataset.text) {
+    startReading(target.dataset.text);
+    e.preventDefault(); // prevent accidental link navigation
+  }
+});
+
+// Open URL on long press / right click
+postsList.addEventListener("contextmenu", (e) => {
+  const target = e.target;
+  if ((target.tagName === "LI" || target.tagName.startsWith("H")) && target.dataset.url) {
+    window.open(target.dataset.url, "_blank"); // open in new tab
+  }
+});
 
 // -------------------- Initial load --------------------
 loadPosts();
