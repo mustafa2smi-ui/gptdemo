@@ -133,6 +133,7 @@ nav a:hover {
 }
 */
 /* ============ Floating Mic Button ============ */
+/*
 .mic-style-btn {
     position: fixed;
     bottom: 2rem;
@@ -153,6 +154,31 @@ nav a:hover {
   /*  z-index: 100;*/
 }
 
+.mic-style-btn:hover {
+    transform: scale(1.1);
+}
+*/
+.mic-style-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: #ffcc00;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    font-size: 1.5rem;
+    transition: transform 0.2s ease-in-out;
+    line-height: 65px;   /* icon center align */
+    text-align: center;  /* icon center align */
+    z-index: 9999;       /* button hamesha upar */
+}
+.mic-style-btn i {
+    pointer-events: none; /* icon pe click issue solve */
+}
 .mic-style-btn:hover {
     transform: scale(1.1);
 }
