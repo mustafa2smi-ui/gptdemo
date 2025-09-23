@@ -87,7 +87,7 @@ nav a:hover {
   background: #0056b3;
   transform: scale(1.05);
 }*/
-/*
+
 #floating-player {
   position: fixed;
   bottom: 80px;
@@ -105,7 +105,7 @@ nav a:hover {
   font-size: 24px;
   cursor: pointer;
 }
-*/
+
 /* ============ 6. Audio Player Button (Big Mic) ============ */
 /* #floating-player {
     position: fixed;
@@ -142,7 +142,7 @@ nav a:hover {
     height: 65px;
     border-radius: 50%;
     background-color: #ffcc00; /* same as your design */
-    color: #000; /* black mic icon */
+    color: #000; /* black mic icon 
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
@@ -151,13 +151,14 @@ nav a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-  /*  z-index: 100;*/
+  /*  z-index: 100;
 }
 
 .mic-style-btn:hover {
     transform: scale(1.1);
-}
+
 */
+/*
 .mic-style-btn {
     position: fixed;
     bottom: 2rem;
@@ -182,6 +183,7 @@ nav a:hover {
 .mic-style-btn:hover {
     transform: scale(1.1);
 }
+*/
 /* Posts */
 #posts-list {
   max-width: 600px;
