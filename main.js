@@ -89,6 +89,7 @@ function openPost(index, element) {
     });
 }
 */
+/*
   function openPost(index, element) {
   fetch(posts[index])
     .then(res => res.text())
@@ -136,6 +137,72 @@ function openPost(index, element) {
       // FIX HERE: TTS के लिए केवल फ़िल्टर्ड कंटेंट का टेक्स्ट लें
       // ************************************************************
       selectedPostContent = displayContent.innerText;
+
+      // Auto play if mic already running (unchanged)
+      if (isPlaying) {
+        stopAudio();
+        startReading(selectedPostContent);
+      }
+    });
+  }
+*/
+  function openPost(index, element) {
+  fetch(posts[index])
+    .then(res => res.text())
+    .then(data => {
+      // Reset all posts (unchanged)
+      document.querySelectorAll(".post").forEach(p => {
+        p.classList.remove("active");
+        let content = p.querySelector(".content");
+        let readMore = p.querySelector(".read-more");
+        if (readMore) readMore.style.display = "inline";
+        if (content && content.textContent.length > 200) {
+          content.innerHTML = content.textContent.substring(0, 150) + "...";
+        }
+      });
+
+      // Parse HTML
+      let tempEl = document.createElement("div");
+      tempEl.innerHTML = data;
+
+      // Allowed tags (BUTTON अब display के लिए allow है)
+      let allowedTags = ["P","H1","H2","H3","H4","H5","H6","IMG","UL","OL","LI","BUTTON"];
+      let displayContent = document.createElement("div");
+
+      // Content filtering
+      let ttsContent = document.createElement("div"); // TTS के लिए एक नया, clean कंटेनर
+
+      tempEl.childNodes.forEach(node => {
+        if (node.nodeType === 1) {
+            // Display Content (BUTTON्स यहाँ शामिल हैं)
+            if (allowedTags.includes(node.tagName)) {
+                let clonedNode = node.cloneNode(true);
+                displayContent.appendChild(clonedNode);
+                
+                // TTS Content: केवल P, H, LI टैग्स को TTS के लिए अलग से सेव करें
+                let ttsAllowed = ["P","H1","H2","H3","H4","H5","H6","LI"];
+                if (ttsAllowed.includes(node.tagName)) {
+                    // IMG और BUTTON्स को TTS कंटेंट में शामिल न करें
+                    ttsContent.appendChild(clonedNode.cloneNode(true));
+                }
+            }
+        } else if (node.nodeType === 3 && node.textContent.trim() !== "") {
+          let p = document.createElement("p");
+          p.textContent = node.textContent;
+          displayContent.appendChild(p);
+          ttsContent.appendChild(p.cloneNode(true)); // TTS के लिए भी plain text जोड़ें
+        }
+      });
+
+      let contentEl = element.querySelector(".content");
+      contentEl.innerHTML = "";
+      contentEl.appendChild(displayContent);
+
+      element.querySelector(".read-more").style.display = "none";
+      element.classList.add("active");
+
+      // FIX: TTS के लिए केवल ttsContent से टेक्स्ट लें
+      selectedPostContent = ttsContent.innerText; 
 
       // Auto play if mic already running (unchanged)
       if (isPlaying) {
