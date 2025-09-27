@@ -2,7 +2,7 @@ const postsList = document.getElementById("posts-list");
 const showMoreBtn = document.getElementById("showMoreBtn");
 const playBtn = document.getElementById("playBtn");
 
-let posts = ["post27sep.html","post26sep.html","post25sep.html","postdatalink.html","postlink.html","post9.html","post1.html","post2.html","post3.html","post4.html","post5.html","post6.html"];
+let posts = ["imagepost.html","post27sep.html","post26sep.html","post25sep.html","postdatalink.html","postlink.html","post9.html","post1.html","post2.html","post3.html","post4.html","post5.html","post6.html"];
 let currentIndex = 0;
 const PAGE_SIZE = 3;
 
