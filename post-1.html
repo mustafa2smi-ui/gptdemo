@@ -18,6 +18,7 @@
     <p>इस पेज को शेयर करने पर, आपको ऊपर दी गई Open Graph इमेज दिखाई देगी।</p>
 
     <button id="sharePost">📤 शेयर करें</button>
+    <!--
     <script>
         document.getElementById('sharePost').addEventListener('click', () => {
             if (navigator.share) {
@@ -37,5 +38,31 @@
             }
         });
     </script>
+    -->
+    
+<script>
+    // 'e' (Event object) को फ़ंक्शन में पास करना ज़रूरी है
+    document.getElementById('sharePost').addEventListener('click', (e) => { 
+        
+        // **FIX** : यह लाइन TTS और Long Press के इवेंट्स को रोकती है
+        e.stopPropagation(); 
+
+        if (navigator.share) {
+            navigator.share({
+                title: document.title,
+                text: "ज़रूर देखें: " + document.querySelector('meta[property="og:description"]').content,
+                url: window.location.href 
+            }).catch((error) => {
+                // अगर यूज़र कैंसिल करता है तो error को चुपचाप हैंडल करें
+                if (error.name !== 'AbortError') {
+                    console.error('Error sharing:', error);
+                }
+            });
+        } else {
+            alert("यह ब्राउज़र शेयरिंग को सपोर्ट नहीं करता। URL कॉपी करें।");
+        }
+    });
+</script>
+    
 </body>
 </html>
