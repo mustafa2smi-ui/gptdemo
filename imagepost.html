@@ -29,6 +29,26 @@
         <li data-url="https://..."> गुरुग्राम में दिल्ली-जयपुर हाईवे पर...</li>
         <li data-url="https://..."> छत्तीसगढ़ में गिरा स्टील प्लांट का...</li>
         </ul>
-    
+    <button id="sharePost">📤 शेयर करें</button>
+
+    <script>
+        document.getElementById('sharePost').addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    text: "ज़रूर देखें: " + document.querySelector('meta[property="og:description"]').content,
+                    // URL को encode करने की ज़रूरत नहीं है क्योंकि यह window.location.href से सीधे लिया जा रहा है
+                    url: window.location.href 
+                }).catch((error) => {
+                    // अगर यूज़र कैंसिल करता है तो error को चुपचाप हैंडल करें
+                    if (error.name !== 'AbortError') {
+                        console.error('Error sharing:', error);
+                    }
+                });
+            } else {
+                alert("यह ब्राउज़र शेयरिंग को सपोर्ट नहीं करता। URL कॉपी करें।");
+            }
+        });
+    </script>
     </body>
 </html>
