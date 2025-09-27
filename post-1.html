@@ -16,9 +16,9 @@
 <body>
     <h1>पोस्ट 1 का मुख्य कंटेंट</h1>
     <p>इस पेज को शेयर करने पर, आपको ऊपर दी गई Open Graph इमेज दिखाई देगी।</p>
-
+<!--
     <button id="sharePost">📤 शेयर करें</button>
-    <!--
+   
     <script>
         document.getElementById('sharePost').addEventListener('click', () => {
             if (navigator.share) {
@@ -39,7 +39,7 @@
         });
     </script>
     -->
-    
+    <!--
 <script>
     // 'e' (Event object) को फ़ंक्शन में पास करना ज़रूरी है
     document.getElementById('sharePost').addEventListener('click', (e) => { 
@@ -66,7 +66,41 @@
     document.getElementById('sharePost').addEventListener('contextmenu', (e) => {
         e.preventDefault(); // Default context menu को रोकेगा
         e.stopPropagation(); // Parent events को रोकेगा
+    }); -->
+    <button class="static-share-btn">📤 इस पोस्ट को शेयर करें</button>
+<script>
+    // Share Button पर लगा इवेंट तभी चलाओ जब पूरा DOM तैयार हो
+    document.addEventListener('DOMContentLoaded', function() {
+        const shareBtn = document.querySelector('.static-share-btn');
+        if (shareBtn) {
+            shareBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        text: document.querySelector('meta[property="og:description"]').content || document.title,
+                        url: window.location.href 
+                    }).catch((error) => {
+                         if (error.name !== 'AbortError') {
+                            console.error('Share Error:', error);
+                            alert("शेयरिंग में समस्या आई। कंसोल देखें।"); // Debug के लिए Alert जोड़ें
+                        }
+                    });
+                } else {
+                     alert("यह ब्राउज़र शेयरिंग को सपोर्ट नहीं करता।"); // Fallback Alert
+                }
+            });
+            
+            // Long press handler को भी रोकें
+            shareBtn.addEventListener('contextmenu', (e) => {
+                e.preventDefault(); 
+                e.stopPropagation();
+            });
+        }
     });
+
+    
 </script>
     
 </body>
