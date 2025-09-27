@@ -6,70 +6,60 @@
   <title>Contact Us - MicNews123</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #00bcd4, #673ab7);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
       margin: 0;
       padding: 0;
       color: #333;
     }
     header {
-      background: #4CAF50;
+      background: #673ab7;
       color: white;
       text-align: center;
-      padding: 15px;
+      padding: 18px;
       font-size: 1.8rem;
       font-weight: bold;
       letter-spacing: 1px;
     }
     .container {
-      max-width: 600px;
+      max-width: 700px;
       margin: 40px auto;
       background: white;
-      padding: 25px;
+      padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
     }
     h2 {
-      text-align: center;
       color: #444;
       margin-bottom: 20px;
+      font-size: 1.6rem;
     }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
+    p {
+      font-size: 1.1rem;
+      margin: 15px 0;
+      line-height: 1.6;
     }
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border: 1px solid #ccc;
+    .email-box {
+      background: #f1f1f1;
+      padding: 15px;
       border-radius: 8px;
-      font-size: 1rem;
-    }
-    textarea {
-      height: 120px;
-      resize: none;
-    }
-    .btn {
-      margin-top: 20px;
-      background: #4CAF50;
-      color: white;
-      padding: 12px;
-      border: none;
-      width: 100%;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
+      display: inline-block;
+      font-size: 1.1rem;
       font-weight: bold;
+      color: #222;
     }
-    .btn:hover {
-      background: #388e3c;
+    .email-box a {
+      color: #0072ff;
+      text-decoration: none;
+    }
+    .email-box a:hover {
+      text-decoration: underline;
     }
     .return-btn {
-      display: block;
-      text-align: center;
-      margin: 30px auto 10px;
+      display: inline-block;
+      margin-top: 30px;
       padding: 12px 25px;
       background: #2196F3;
       color: white;
@@ -85,9 +75,13 @@
       text-align: center;
       background: #333;
       color: white;
-      padding: 10px;
+      padding: 12px;
       margin-top: 40px;
       font-size: 0.9rem;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -95,22 +89,17 @@
   <header>📩 Contact Us</header>
 
   <div class="container">
-    <h2>Get in Touch</h2>
-    <form onsubmit="event.preventDefault(); alert('Your message has been sent!');">
-      <label for="name">Your Name:</label>
-      <input type="text" id="name" placeholder="Enter your name" required>
+    <h2>We’d Love to Hear From You! 💬</h2>
+    <p>Have questions or suggestions? We’d love to hear from you!  
+    Drop us an email at:</p>
 
-      <label for="email">Your Email:</label>
-      <input type="email" id="email" placeholder="Enter your email" required>
+    <div class="email-box">
+      ✉️ <a href="mailto:webtool@gmail.com">webtool@gmail.com</a>
+    </div>
 
-      <label for="message">Your Message:</label>
-      <textarea id="message" placeholder="Write your message here..." required></textarea>
-
-      <button type="submit" class="btn">Send Message</button>
-    </form>
+    <br>
+    <a href="index.html" class="return-btn">🏠 Return Home</a>
   </div>
-
-  <a href="index.html" class="return-btn">🏠 Return Home</a>
 
   <footer>
     &copy; 2025 MicNews123 | All Rights Reserved
