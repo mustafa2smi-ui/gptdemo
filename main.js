@@ -42,7 +42,7 @@ function loadPosts() {
     })
     .catch(error => console.error("Error loading posts:", error));
 }
-
+/*
 function openPost(index, element) {
   fetch(posts[index])
     .then(res => res.text())
@@ -88,6 +88,62 @@ function openPost(index, element) {
       }
     });
 }
+*/
+  function openPost(index, element) {
+  fetch(posts[index])
+    .then(res => res.text())
+    .then(data => {
+      // Reset all posts (unchanged)
+      document.querySelectorAll(".post").forEach(p => {
+        p.classList.remove("active");
+        let content = p.querySelector(".content");
+        let readMore = p.querySelector(".read-more");
+        if (readMore) readMore.style.display = "inline";
+        if (content && content.textContent.length > 200) {
+          content.innerHTML = content.textContent.substring(0, 150) + "...";
+        }
+      });
+
+      // Parse HTML
+      let tempEl = document.createElement("div");
+      tempEl.innerHTML = data;
+
+      // Allowed tags
+      let allowedTags = ["P","H1","H2","H3","H4","H5","H6","IMG","UL","OL","LI"];
+      let displayContent = document.createElement("div");
+
+      // Content filtering (unchanged)
+      tempEl.childNodes.forEach(node => {
+        if (node.nodeType === 1 && allowedTags.includes(node.tagName)) {
+          // IMG tags ko padhne se bachne ke liye thoda aur fine-tuning kiya ja sakta hai,
+          // lekin abhi ye theek hai
+          displayContent.appendChild(node.cloneNode(true));
+        } else if (node.nodeType === 3 && node.textContent.trim() !== "") {
+          let p = document.createElement("p");
+          p.textContent = node.textContent;
+          displayContent.appendChild(p);
+        }
+      });
+
+      let contentEl = element.querySelector(".content");
+      contentEl.innerHTML = "";
+      contentEl.appendChild(displayContent);
+
+      element.querySelector(".read-more").style.display = "none";
+      element.classList.add("active");
+
+      // ************************************************************
+      // FIX HERE: TTS के लिए केवल फ़िल्टर्ड कंटेंट का टेक्स्ट लें
+      // ************************************************************
+      selectedPostContent = displayContent.innerText;
+
+      // Auto play if mic already running (unchanged)
+      if (isPlaying) {
+        stopAudio();
+        startReading(selectedPostContent);
+      }
+    });
+  }
 
 function startReadingFromElement(element) {
   if (!("speechSynthesis" in window)) {
