@@ -109,7 +109,7 @@ function openPost(index, element) {
       tempEl.innerHTML = data;
 
       // Allowed tags
-      let allowedTags = ["P","H1","H2","H3","H4","H5","H6","IMG","UL","OL","LI"];
+      let allowedTags = ["P","H1","H2","H3","H4","H5","H6","IMG","UL","OL","LI","BUTTON"];
       let displayContent = document.createElement("div");
 
       // Content filtering (unchanged)
