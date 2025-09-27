@@ -146,6 +146,7 @@ function openPost(index, element) {
     });
   }
 */
+/*
   function openPost(index, element) {
   fetch(posts[index])
     .then(res => res.text())
@@ -193,6 +194,85 @@ function openPost(index, element) {
           ttsContent.appendChild(p.cloneNode(true)); // TTS के लिए भी plain text जोड़ें
         }
       });
+*/
+function openPost(index, element) {
+  fetch(posts[index])
+    .then(res => res.text())
+    .then(data => {
+      // ... (Reset all posts और Parsing वाला सारा कोड अपरिवर्तित) ...
+
+      // Parse HTML
+      let tempEl = document.createElement("div");
+      tempEl.innerHTML = data;
+
+      // Allowed tags
+      let allowedTags = ["P","H1","H2","H3","H4","H5","H6","IMG","UL","OL","LI","BUTTON"];
+      let displayContent = document.createElement("div");
+      let ttsContent = document.createElement("div");
+      
+      // *** FIX *** : Scripts को चलाने के लिए एक Array बनाएं
+      let scriptsToExecute = []; 
+
+      tempEl.childNodes.forEach(node => {
+        if (node.nodeType === 1) {
+            
+            // 1. Script Tags को ढूंढें और उन्हें execution के लिए सेव करें
+            if (node.tagName === "SCRIPT") {
+                scriptsToExecute.push(node.textContent);
+                return; // Script को displayContent में न जोड़ें
+            }
+            
+            // 2. Allowed Tags (BUTTON सहित) को Display करें
+            if (allowedTags.includes(node.tagName)) {
+                let clonedNode = node.cloneNode(true);
+                displayContent.appendChild(clonedNode);
+                
+                // 3. TTS Content
+                let ttsAllowed = ["P","H1","H2","H3","H4","H5","H6","LI"];
+                if (ttsAllowed.includes(node.tagName)) {
+                    ttsContent.appendChild(clonedNode.cloneNode(true));
+                }
+            }
+        } 
+        // ... (बाकी nodeType === 3 वाला हिस्सा) ...
+         else if (node.nodeType === 3 && node.textContent.trim() !== "") {
+          let p = document.createElement("p");
+          p.textContent = node.textContent;
+          displayContent.appendChild(p);
+          ttsContent.appendChild(p.cloneNode(true));
+        }
+      });
+      // ... (displayContent को contentEl में जोड़ने वाला कोड) ...
+      let contentEl = element.querySelector(".content");
+      contentEl.innerHTML = "";
+      contentEl.appendChild(displayContent);
+
+      element.querySelector(".read-more").style.display = "none";
+      element.classList.add("active");
+
+
+      // *** FINAL EXECUTION FIX ***
+      // 4. सभी Scripts को चलाएं, ताकि Share Button का Event Listener काम करे
+      scriptsToExecute.forEach(scriptText => {
+          try {
+              eval(scriptText); // खतरनाक हो सकता है, लेकिन इस केस में ज़रूरी है
+          } catch (e) {
+              console.error("Error executing dynamic script:", e);
+          }
+      });
+      // *************************
+      
+
+      // TTS FIX
+      selectedPostContent = ttsContent.innerText; 
+
+      // Auto play if mic already running (unchanged)
+      if (isPlaying) {
+        stopAudio();
+        startReading(selectedPostContent);
+      }
+    });
+}
 
       let contentEl = element.querySelector(".content");
       contentEl.innerHTML = "";
