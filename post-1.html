@@ -62,6 +62,11 @@
             alert("यह ब्राउज़र शेयरिंग को सपोर्ट नहीं करता। URL कॉपी करें।");
         }
     });
+     // *** FIX *** : Long Press/Right Click को रोकें
+    document.getElementById('sharePost').addEventListener('contextmenu', (e) => {
+        e.preventDefault(); // Default context menu को रोकेगा
+        e.stopPropagation(); // Parent events को रोकेगा
+    });
 </script>
     
 </body>
