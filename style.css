@@ -245,17 +245,18 @@ nav a:hover {
 }
 */
 /* Container for stacking */
+/*
 #floating-container {
   position: fixed;
   bottom: 30px;   /* screen ke bottom se distance */
-  right: 30px;    /* screen ke right se distance */
+  right: 30px;    /* screen ke right se distance 
   display: flex;
   flex-direction: column; /* buttons ko upar-niche karega */
   gap: 15px; /* buttons ke beech gap */
   z-index: 9999;
 }
 
-/* Common style for both buttons */
+/* Common style for both buttons 
 .floating-btn {
   background: #ffcc00;
   border-radius: 50%;
@@ -272,6 +273,48 @@ nav a:hover {
   font-size: 24px;
   cursor: pointer;
 }
+*/
+/* Container for stacking buttons */
+#floating-container {
+  position: fixed;
+  bottom: 30px;   /* bottom se distance */
+  right: 20px;    /* right side se chipka hua */
+  display: flex;
+  flex-direction: column; /* ek ke niche ek */
+  gap: 15px; /* dono ke beech gap */
+  z-index: 9999;
+}
+
+/* Common floating button style */
+.floating-btn {
+  width: 60px;   /* fixed width */
+  height: 60px;  /* fixed height */
+  border-radius: 50%; /* pura gol */
+  background: #ff5722; /* default color */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.floating-btn button {
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Hover effect */
+.floating-btn:hover {
+  transform: scale(1.1);
+  background: #e64a19;
+}
+
+/* Alag color dena chaho */
+#floating-share { background: #2196f3; }  /* Blue */
+#floating-player { background: #4caf50; } /* Green */
 /* Posts */
 #posts-list {
   max-width: 600px;
