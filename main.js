@@ -195,6 +195,7 @@ function openPost(index, element) {
         }
       });
 */
+/*
 function openPost(index, element) {
   fetch(posts[index])
     .then(res => res.text())
@@ -291,7 +292,61 @@ function openPost(index, element) {
       }
     });
   }
+*/
+// --- Open Post Function ---
+function openPost(postId) {
+  const contentDiv = document.getElementById("content");
+  const postContent = document.getElementById(postId).innerHTML;
+  contentDiv.innerHTML = postContent;
+  contentDiv.classList.remove("hidden");
+  document.querySelector("main").classList.add("hidden");
+}
 
+// --- Back Button Function ---
+function goBack() {
+  document.getElementById("content").classList.add("hidden");
+  document.querySelector("main").classList.remove("hidden");
+  document.getElementById("content").innerHTML = "";
+}
+
+// --- Text-to-Speech Handler ---
+document.addEventListener("click", function (e) {
+  if (e.target.closest("#content")) {
+    // Agar share button click hai to TTS ko skip karo
+    if (e.target.id === "sharePost") return;
+
+    const text = e.target.innerText || e.target.textContent;
+    if (text.trim()) {
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.lang = "hi-IN"; // Hindi TTS
+      window.speechSynthesis.speak(speech);
+    }
+  }
+});
+
+// --- Global Share Button Handler ---
+document.addEventListener("click", function (e) {
+  if (e.target && e.target.id === "sharePost") {
+    e.stopPropagation(); // TTS ko block kare
+
+    if (navigator.share) {
+      navigator.share({
+        title: document.title,
+        text:
+          document.querySelector('meta[property="og:description"]')?.content ||
+          "",
+        url: window.location.href,
+      }).catch((err) => {
+        if (err.name !== "AbortError") {
+          console.error("Share Error:", err);
+          alert("शेयरिंग में समस्या आई।");
+        }
+      });
+    } else {
+      alert("यह ब्राउज़र शेयरिंग को सपोर्ट नहीं करता। URL कॉपी करें।");
+    }
+  }
+});
 function startReadingFromElement(element) {
   if (!("speechSynthesis" in window)) {
     alert("माफ़ करें, आपका डिवाइस ऑडियो सपोर्ट नहीं करता।");
