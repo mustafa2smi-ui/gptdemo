@@ -173,7 +173,7 @@ nav a:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     font-size: 1.5rem;
     transition: transform 0.2s ease-in-out;
-    line-height: 65px;   /* icon center align */
+    line-height: 65px;   /* icon center align 
     text-align: center;  /* icon center align */
     z-index: 9999;       /* button hamesha upar 
 }
@@ -248,10 +248,10 @@ nav a:hover {
 /*
 #floating-container {
   position: fixed;
-  bottom: 30px;   /* screen ke bottom se distance */
+  bottom: 30px;   /* screen ke bottom se distance 
   right: 30px;    /* screen ke right se distance 
   display: flex;
-  flex-direction: column; /* buttons ko upar-niche karega */
+  flex-direction: column; /* buttons ko upar-niche karega 
   gap: 15px; /* buttons ke beech gap */
   z-index: 9999;
 }
@@ -277,8 +277,8 @@ nav a:hover {
 /* Container for stacking buttons */
 #floating-container {
   position: fixed;
-  bottom: 40px;   /* bottom se distance */
-  right: 20px;    /* right side se chipka hua */
+  bottom: 80px;   /* bottom se distance */
+  right: 30px;    /* right side se chipka hua */
   display: flex;
   flex-direction: column; /* ek ke niche ek */
   gap: 20px; /* dono ke beech gap */
