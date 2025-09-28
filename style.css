@@ -1,0 +1,210 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f8;
+  color: #333;
+  line-height: 1.6;
+  /* नीचे Floating buttons के लिए जगह */
+  padding-bottom: 120px; 
+}
+
+/* ================== Header ================== */
+header {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header h1 {
+  margin-bottom: 10px;
+}
+
+nav a {
+  display: inline-block;
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: background 0.3s;
+}
+
+nav a:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* ================== Floating Buttons ================== */
+
+/* Container for Mic and Share buttons */
+#floating-buttons-container {
+    position: fixed;
+    bottom: 20px; /* नीचे से 20px ऊपर */
+    right: 20px;  /* दाएँ से 20px अंदर */
+    display: flex; 
+    flex-direction: column; /* बटनों को एक के नीचे एक रखने के लिए */
+    align-items: flex-end; /* बटनों को right side में align करने के लिए */
+    gap: 10px; /* बटनों के बीच की दूरी */
+    z-index: 9999; /* सबसे ऊपर रहे */
+}
+
+/* Common style for both floating buttons */
+.floating-btn {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    font-size: 1.5rem; /* Icon/Text size */
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease-in-out, background-color 0.3s;
+}
+
+.floating-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Mic Button Style */
+#playBtn {
+    background-color: #ffcc00; /* Yellow */
+    color: #000; /* Black text */
+    /* text content "🎤 Play" को दिखाने के लिए padding की ज़रूरत नहीं */
+    font-size: 16px; /* Text size */
+    line-height: 1.2;
+    white-space: nowrap; /* Text को wrap होने से रोकता है */
+    padding: 10px;
+    height: auto; /* Allow height to adjust */
+    width: auto; /* Allow width to adjust */
+    min-width: 65px;
+    min-height: 65px;
+}
+
+/* Share Button Style */
+#shareBtn {
+    background-color: #28a745; /* Green */
+    color: white; 
+    font-size: 16px; /* Text size */
+    line-height: 1.2;
+    white-space: nowrap;
+    padding: 10px;
+    height: auto;
+    width: auto;
+    min-width: 65px;
+    min-height: 65px;
+}
+
+/* ================== Posts ================== */
+#posts-list {
+  max-width: 600px;
+  margin: auto;
+  padding: 10px;
+}
+
+.post {
+  background: #fff;
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, border 0.3s;
+}
+
+.post:hover {
+  transform: translateY(-3px);
+}
+
+.post.active {
+  border: 3px solid #007bff;
+}
+
+.post h2 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #007bff;
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ================== Show More ================== */
+.show-more {
+  text-align: center;
+  margin: 20px;
+}
+
+.show-more button {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.show-more button:hover {
+  background: #1e7e34;
+  transform: scale(1.05);
+}
+
+/* ================== Footer ================== */
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+footer a {
+  color: #00c6ff;
+  margin: 0 8px;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* ================== Responsive ================== */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 22px;
+  }
+
+  .post {
+    padding: 12px;
+  }
+
+  .post h2 {
+    font-size: 18px;
+  }
+
+  /* Floating buttons ko mobile par thoda upar shift kar sakte hain */
+  #floating-buttons-container {
+      bottom: 80px; /* Footer ko dhyan me rakhte hue */
+  }
+}
