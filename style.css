@@ -285,24 +285,17 @@ nav a:hover {
   z-index: 9999;
 }
 
-/* Common floating button style 
+/* Common floating button style */
 .floating-btn {
-  width: 60px;   /* fixed width 
-  height: 60px;  /* fixed height 
-  border-radius: 50%; /* pura gol 
-  background: #ff5722; /* default color 
+  width: 60px;   /* fixed width */
+  height: 60px;  /* fixed height */
+  border-radius: 50%; /* pura gol */
+  background: #ff5722; /* default color */
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   display: flex;
   justify-content: center;
   align-items: center;
   transition: transform 0.2s, background 0.3s;
-}
-*/
-.floating-btn {
-  background: #ffcc00;
-  border-radius: 50%;
-  padding: 18px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 .floating-btn button {
   border: none;
