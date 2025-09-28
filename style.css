@@ -277,8 +277,8 @@ nav a:hover {
 /* Container for stacking buttons */
 #floating-container {
   position: fixed;
-  bottom: 30px;   /* bottom se distance */
-  left: 20px;    /* right side se chipka hua */
+  bottom: 40px;   /* bottom se distance */
+  right: 20px;    /* right side se chipka hua */
   display: flex;
   flex-direction: column; /* ek ke niche ek */
   gap: 20px; /* dono ke beech gap */
