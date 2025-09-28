@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>मेरा पहला शेयर करने लायक़ पोस्ट</title>
+
+  <!-- Open Graph tags for social preview -->
+  <meta property="og:title" content="Mustafa का शानदार Post Title">
+  <meta property="og:description" content="यह Open Graph इमेज के साथ मेरा पहला सफल शेयर है।">
+  <meta property="og:image" content="https://raw.githubusercontent.com/mustafa2smi-ui/gptdemo/main/mic1234.png">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://aapkasite.com/post1.html"> <!-- final URL daaliye -->
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+  <h1>पोस्ट 1 का मुख्य कंटेंट</h1>
+  <p>इस पेज को शेयर करने पर, आपको ऊपर दी गई Open Graph इमेज दिखाई देगी।</p>
+
+  <!-- Share button -->
+  <button id="sharePost" aria-hidden="false" tabindex="0">📤 शेयर करें</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const shareBtn = document.getElementById("sharePost");
+
+      if (!shareBtn) return;
+
+      // Click event
+      shareBtn.addEventListener("click", (e) => {
+        e.stopPropagation(); // TTS / parent events block kare
+        if (navigator.share) {
+          navigator.share({
+            title: document.title,
+            text: document.querySelector('meta[property="og:description"]')?.content || "",
+            url: window.location.href
+          }).catch((error) => {
+            if (error.name !== "AbortError") {
+              console.error("Share Error:", error);
+              alert("शेयरिंग में समस्या आई।");
+            }
+          });
+        } else {
+          alert("यह ब्राउज़र शेयरिंग को सपोर्ट नहीं करता। URL कॉपी करें।");
+        }
+      });
+
+      // Long press / right click block
+      shareBtn.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
+  </script>
+</body>
+</html>
