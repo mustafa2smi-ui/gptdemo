@@ -1,0 +1,55 @@
+/* style.css file mein ise jod dein */
+
+.floating-buttons-container {
+    /* Isse container hamesha screen par ek hi jagah bana rahega, scroll karne par bhi */
+    position: fixed;
+
+    /* Screen ke right side se 20 pixels ki doori par */
+    right: 20px;
+
+    /* Screen ke neeche (bottom) se 20 pixels ki doori par */
+    bottom: 20px;
+
+    /* Agar zaroorat pade to doosre elements ke upar dikhane ke liye */
+    z-index: 1000;
+
+    /* Buttons ko ek doosre ke upar-neeche rakhne ke liye (optional, flex se accha lagta hai) */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Buttons ke beech ki doori */
+}
+
+.floating-btn {
+    /* Buttons ke liye common styling */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Gol aakar */
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Accha shadow effect */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px; /* Icon size */
+    transition: background-color 0.3s;
+}
+
+/* Mic Button ka khaas style */
+.mic-btn {
+    background-color: #ff5722; /* Jaise, orange color */
+    color: white;
+}
+
+.mic-btn:hover {
+    background-color: #e64a19;
+}
+
+/* Share Button ka khaas style */
+.share-btn {
+    background-color: #00bcd4; /* Jaise, blue-cyan color */
+    color: white;
+}
+
+.share-btn:hover {
+    background-color: #0097a7;
+}
