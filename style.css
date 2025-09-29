@@ -225,7 +225,7 @@ nav a:hover {
   cursor: pointer;
 }
 */
-#floating-player {
+#floating-btn {
   position: fixed;
   bottom: 80px;
   right: 30px;
