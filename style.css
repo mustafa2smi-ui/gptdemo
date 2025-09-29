@@ -207,10 +207,10 @@ nav a:hover {
 .share-style-btn i {
     pointer-events: none; /* icon pe click issue solve */
 }
-/*Mic Button 
-#floating-player {
+/*Mic Button */
+#floating-btn {
   position: fixed;
-  bottom: 80px; /* Mic ka original position 
+  bottom: 80px; /* Mic ka original position */
   right: 30px;
   background: #ffcc00;
   border-radius: 50%;
@@ -224,17 +224,18 @@ nav a:hover {
   font-size: 24px;
   cursor: pointer;
 }
-*/
+
+/*
 #floating-btn {
   position: fixed;
   bottom: 80px;
   right: 30px;
-  width: 70px;         /* fixed width */
-  height: 70px;        /* fixed height */
+  width: 70px;         /* fixed width 
+  height: 70px;        /* fixed height 
   background: #ffcc00;
-  border-radius: 50%;  /* perfect round */
-  border: 3px solid #000; /* black border */
-  display: flex;       /* icon ko center lane ke liye */
+  border-radius: 50%;  /* perfect round 
+  border: 3px solid #000; /* black border 
+  display: flex;       /* icon ko center lane ke liye 
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -247,6 +248,7 @@ nav a:hover {
   font-size: 28px;
   cursor: pointer;
 }
+*/
 /* Share Button 
 #floating-share {
   position: fixed;
